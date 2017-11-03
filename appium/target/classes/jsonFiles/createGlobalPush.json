@@ -1,0 +1,30 @@
+{
+	"senderType":"0",
+	"channelCode":"100",
+	"serviceCode":"banana",
+	"userKey":"",
+	"payloads": {
+		"KO_KR": {
+			"title": "자동화 제목",
+			"alert": "테스트자동화"
+		},
+		"EN_US": {
+			"title": "Automation Title",
+			"alert": "Test Automation"
+		},
+		"AR": {
+			"title": "أتمتة العنوان",
+			"alert": "أتمتة الاختبار"
+		},
+		"ZH_CN": {
+			"title": "自动化标题",
+			"alert": "测试自动化"
+		},
+		"JA_JP": {
+			"title": "自動化タイトル",
+			"alert": "テストの自動化"
+		}
+	},
+	"defaultLocale":"KO_KR",
+	"targetUserList":["aaaaaaaaaaaaaaaa"]
+}

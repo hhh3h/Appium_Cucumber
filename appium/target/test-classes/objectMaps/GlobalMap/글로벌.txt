@@ -5,4 +5,4 @@
 
 
 * 초기 화면
-gameCode|id=gameCode
+computer|id=computer-id
