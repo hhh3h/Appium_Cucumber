@@ -7,4 +7,3 @@
 
 자동화서버주소=http://0.0.0.0:4723/wd/hub
 앱이름=example.apk
-netm=netmarble

@@ -5,7 +5,7 @@ import cucumber.api.junit.Cucumber;
 import cucumber.api.CucumberOptions;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features= {"target"},tags={"@Cucumber"})
+@CucumberOptions(features= {"target"},tags={"@example"})
 public class App {
 	
 }
