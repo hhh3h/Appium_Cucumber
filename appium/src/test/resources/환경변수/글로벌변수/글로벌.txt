@@ -12,3 +12,10 @@
 디바이스이름=XT1562
 플랫폼종류=Android
 플랫폼버전=6.0.1
+메인이미지=exam_main.jpg
+1이미지=exam_1_green.jpg
+2이미지=exam_2_blue.jpg
+3이미지=exam_3_red.jpg
+1버튼이미지=exam_1.jpg
+2버튼이미지=exam_2.jpg
+3버튼이미지=exam_3.jpg

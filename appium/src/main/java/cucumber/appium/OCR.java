@@ -58,6 +58,9 @@ public class OCR {
 	public void clickImage(String targetImgPath, long timeoutDuration, double minSimilarityValue,
 			Location targetOffset) {
 		// Wait for image detection
+		try {
+		      Thread.sleep(1000);
+		    } catch (InterruptedException e) { }
 		waitUntilImageExists(targetImgPath, timeoutDuration, minSimilarityValue, targetOffset);
 		// Click on the coordinates found
 		if ((coords.getX() > -1) && (coords.getY() > -1)) {
