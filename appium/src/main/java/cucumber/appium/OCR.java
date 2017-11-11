@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.sikuli.basics.Debug;
@@ -24,7 +25,6 @@ import org.sikuli.script.Match;
 import org.sikuli.script.Pattern;
 
 import com.google.common.base.Function;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 
@@ -57,12 +57,8 @@ public class OCR {
 	 */
 	public void clickImage(String targetImgPath, long timeoutDuration, double minSimilarityValue,
 			Location targetOffset) {
-		// Wait for image detection
-		try {
-		      Thread.sleep(1000);
-		    } catch (InterruptedException e) { }
 		waitUntilImageExists(targetImgPath, timeoutDuration, minSimilarityValue, targetOffset);
-		// Click on the coordinates found
+		Point2D coords = getCoords(takeScreenshot(), targetImgPath, minSimilarityValue, targetOffset);
 		if ((coords.getX() > -1) && (coords.getY() > -1)) {
 			Log.info(String.format("Tap on [%4.0f,%4.0f]", coords.getX(), coords.getY()));
 			TouchAction action = new TouchAction(driver);
@@ -128,7 +124,7 @@ public class OCR {
 	 */
 	private BufferedImage takeScreenshot() {
 		Debug.on(3);
-		File scrFile = driver.getScreenshotAs(OutputType.FILE);
+		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE); // driver Error ... 어떻게 이전 driver을 그대로 유지할 것인가?
 		BufferedImage bufferedImage = null;
 		try {
 			bufferedImage = ImageIO.read(scrFile);
@@ -147,7 +143,7 @@ public class OCR {
 	 */
 	private String takeScreenshot(String filename) {
 		Debug.on(3);
-		File scrFile = driver.getScreenshotAs(OutputType.FILE);
+		File scrFile = driver.getScreenshotAs(OutputType.FILE); // driver Error ... 어떻게 이전 driver을 그대로 유지할 것인가?
 
 		File classpathRoot = new File(System.getProperty("user.dir"));
 		File imgDir = new File(classpathRoot, "src/test/resources/img");
@@ -174,7 +170,7 @@ public class OCR {
 		coords = getCoords(takeScreenshot(), targetImgPath, similarity, targetOffset);
 		return (coords.getX() > -1) && (coords.getY() > -1);
 	}
-
+	
 	/**
 	 * @param targetImgPath
 	 * @param timeoutDuration
@@ -196,7 +192,15 @@ public class OCR {
 	private void waitUntilImageExists(final String targetImgPath, long timeoutDuration, final double similarity,
 			final Location targetOffset) {
 		int count = 0;
+		try {
+			elementExists(targetImgPath, similarity, targetOffset);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		// Scroll down 5 times and then try match image
+		/**
 		while (count < 5) {
 			try {
 				new WebDriverWait(driver, timeoutDuration).until(new Function<WebDriver, Boolean>() {
@@ -214,7 +218,7 @@ public class OCR {
 				scrollDown();
 			}
 			count++;
-		}
+		}**/
 	}
 
 	private void scrollDown() {

@@ -5,19 +5,24 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import cucumber.appium.OCR;
+import cucumber.appium.Property;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.remote.MobileCapabilityType;
+
 import org.apache.log4j.Logger;
+import org.openqa.selenium.ScreenOrientation;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.sikuli.basics.Settings;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class ImageHandler {
-	private AppiumDriver<?> driver;
-	private OCR ocr = new OCR(driver);
+	private Selendroid2Driver driver = AppSetting.getDriver();
 	String imgPath = "src/img/";
 	double DEFAULT_MIN_SIMILARITY = 0.7;
 	private static Logger Log = Logger.getLogger(OCR.class);
-
+	private OCR ocr;
+	
 	/**
 	 * Image가 존재하는지 확인 한다.
 	 * 
@@ -26,9 +31,9 @@ public class ImageHandler {
 	 */
 	public void validateImage(String image) throws Exception {
 		System.out.printf("당신의 이미지는 %s 입니다.", image);
+		ocr = new OCR(driver);
 		String imageName = image;
 		String imageLocation = imgPath + imageName;
-		
 		BufferedImage testImg = convertImgFileToBufferedImage(imageLocation);
         assertThat("default minSimilarity should be used", Settings.MinSimilarity, is(DEFAULT_MIN_SIMILARITY));
         ocr.getCoords(testImg, imageLocation, 0.9, null);
@@ -43,6 +48,9 @@ public class ImageHandler {
 	 */
 	public void selectImage(String btn_image) throws Exception {
 		System.out.printf("당신이 클릭할 이미지는 %s 입니다.", btn_image);
+		driver.context("NATIVE_APP");
+        driver.rotate(ScreenOrientation.PORTRAIT);
+		ocr = new OCR(driver);
 		String imageName = btn_image;
 		String imageLocation = imgPath + imageName;
 		ocr.clickImage(imageLocation, 10);
@@ -63,5 +71,4 @@ public class ImageHandler {
 		}
 		return in;
 	}
-
 }

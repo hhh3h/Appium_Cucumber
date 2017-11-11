@@ -1,7 +1,5 @@
 package cucumber.appium;
 
-import cucumber.appium.ImageHandler;
-
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -17,7 +15,7 @@ public class ImageTest {
 	
 	@Then("^\"([^\"]*)\" 를 선택 한다\\.$")
 	public void 를_선택_한다(String btn_image) throws Throwable {
-		btn_image = Property.convertVariableToValue(btn_image);
+		btn_image = Property.convertVariableToValue(btn_image);		
 		System.out.println("Select your button: " + btn_image);
 		Property.initProperty(btn_image);
 		ImageHandler imgHdr = new ImageHandler();
@@ -26,7 +24,7 @@ public class ImageTest {
 
 	@When("^앱은 이미 배포가 되어 있다\\.$")
 	public void 앱은_이미_배포가_되어_있다() throws Throwable {
-	    
+	    return;
 	}
 
 	@Then("^만약 테스트가 진행 된다면 Exception을 발생 시킨다\\.$")
